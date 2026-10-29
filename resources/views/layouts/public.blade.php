@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@hasSection('title')@yield('title') · @endif LyK Asesoría y Consultoría</title>
     @stack('meta')
-    <link rel="icon" type="image/png" href="{{ asset('images/brand/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ app(\App\Support\Settings::class)->imageUrl('logo_path', 'images/brand/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">

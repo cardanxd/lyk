@@ -1,8 +1,8 @@
 <footer class="mt-16 bg-navy text-white">
     <div class="container-page grid gap-10 py-12 md:grid-cols-3">
         <div>
-            <img src="{{ asset('images/brand/logo.png') }}" alt="" class="mb-4 h-20 w-auto rounded-xl bg-white p-1" width="80" height="80">
-            <p class="font-serif text-lg">Hacemos de tu retiro una nueva oportunidad</p>
+            <img src="{{ app(\App\Support\Settings::class)->imageUrl('logo_path', 'images/brand/logo.png') }}" alt="" class="mb-4 h-20 w-auto rounded-xl bg-white p-1" width="80" height="80">
+            <p class="font-serif text-lg">{{ setting('tagline', 'Hacemos de tu retiro una nueva oportunidad') }}</p>
         </div>
         <div>
             <h2 class="mb-3 font-sans text-base font-bold tracking-widest text-gold uppercase">Navegación</h2>
@@ -19,7 +19,7 @@
     </div>
     <div class="border-t border-white/15">
         <div class="container-page flex flex-col gap-2 py-5 text-sm text-white/80 sm:flex-row sm:justify-between">
-            <p>&copy; {{ date('Y') }} LyK Asesoría y Consultoría de Pensiones y AFORE</p>
+            <p>&copy; {{ date('Y') }} {{ setting('site_name', 'LyK Asesoría y Consultoría de Pensiones y AFORE') }}</p>
             @if (Route::has('privacy'))<a href="{{ route('privacy') }}" class="underline hover:text-gold">Aviso de privacidad</a>@endif
         </div>
     </div>

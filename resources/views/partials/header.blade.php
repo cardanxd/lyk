@@ -10,7 +10,7 @@
 <header class="sticky top-0 z-40 border-b border-sage/60 bg-cream/95 backdrop-blur">
     <div class="container-page flex items-center justify-between gap-4 py-3">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
-            <img src="{{ asset('images/brand/logo.png') }}" alt="LyK Asesoría y Consultoría de Pensiones y AFORE" class="h-14 w-auto" width="56" height="56">
+            <img src="{{ app(\App\Support\Settings::class)->imageUrl('logo_path', 'images/brand/logo.png') }}" alt="LyK Asesoría y Consultoría de Pensiones y AFORE" class="h-14 w-auto" width="56" height="56">
             <span class="hidden font-serif text-lg leading-tight text-navy sm:block">LyK Asesoría<br><span class="text-sm text-muted font-sans">Pensiones y AFORE</span></span>
         </a>
 
