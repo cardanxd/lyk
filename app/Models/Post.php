@@ -73,6 +73,15 @@ class Post extends Model
         return preg_replace('#<(/?)h[23]\b#i', '<$1h1', (string) $this->body);
     }
 
+    /** Agrega photos_count y videos_count (subidos o enlazados) para las tarjetas. */
+    public function scopeWithMediaCounts(Builder $query): Builder
+    {
+        return $query->withCount([
+            'media as photos_count' => fn ($q) => $q->where('type', 'image'),
+            'media as videos_count' => fn ($q) => $q->where('type', '!=', 'image'),
+        ]);
+    }
+
     public function excerptText(): string
     {
         return $this->excerpt ?: Str::limit(trim(html_entity_decode(strip_tags($this->body))), 160);

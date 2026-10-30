@@ -13,6 +13,8 @@ class ImageUploader
 
     public const VIDEO_TOO_LARGE = 'Cada video debe pesar máximo 50 MB.';
 
+    public const UPLOAD_TOO_LARGE = 'Lo que intentaste subir pesa demasiado. Las imágenes deben pesar máximo 5 MB y los videos máximo 50 MB. Sube menos archivos a la vez si son varios.';
+
     public const TOO_LARGE = 'El archivo es demasiado pesado. Usa imágenes JPG, PNG o WEBP de máximo 5 MB.';
 
     /** Mensajes de validación para campos de imagen (incluye el fallo de subida de PHP). */

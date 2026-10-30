@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // así que se muestra una página en español que regresa al formulario con el historial.
         $exceptions->render(function (PostTooLargeException $e, Request $request) {
             if (! $request->expectsJson()) {
-                return response()->view('errors.413', ['message' => ImageUploader::TOO_LARGE], 413);
+                return response()->view('errors.413', ['message' => ImageUploader::UPLOAD_TOO_LARGE], 413);
             }
         });
 
