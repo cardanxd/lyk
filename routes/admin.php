@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\PasswordController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('ajustes', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('ajustes', [SettingsController::class, 'update'])->name('settings.update');
 
+    Route::resource('posts', PostController::class)->except('show')->scoped(['post' => 'id']);
     Route::resource('portadas', HeroSlideController::class)->except('show')->names('slides')->parameters(['portadas' => 'id']);
     Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);
     Route::resource('preguntas', FaqController::class)->except('show')->names('faqs')->parameters(['preguntas' => 'id']);

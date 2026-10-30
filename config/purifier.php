@@ -23,6 +23,13 @@ return [
     'cachePath'          => storage_path('app/purifier'),
     'cacheFileMode'      => 0755,
     'settings'      => [
+        'post' => [
+            'HTML.Doctype'             => 'HTML 4.01 Transitional',
+            'HTML.Allowed'             => 'p,div,br,strong,b,em,i,del,u,a[href|title],ul,ol,li,h1,h2,h3,blockquote,pre,img[src|alt]',
+            'URI.AllowedSchemes'       => ['http' => true, 'https' => true, 'mailto' => true, 'tel' => true],
+            'AutoFormat.AutoParagraph' => false,
+            'AutoFormat.RemoveEmpty'   => true,
+        ],
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
