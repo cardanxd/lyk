@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Libre Baskerville', ui-serif, Georgia, serif;
+
+    --color-navy: #1B2A4A;
+    --color-navy-700: #263A63;
+    --color-leaf: #5B9A3C;
+    --color-leaf-700: #3F7228;
+    --color-gold: #E3A92B;
+    --color-gold-600: #C98F17;
+    --color-sage: #B9CDB0;
+    --color-sage-100: #E6EEE2;
+    --color-cream: #F7F5EF;
+    --color-ink: #1F2933;
+    --color-muted: #4B5563;
+}
+
+@layer base {
+    html {
+        font-size: 112.5%; /* 18px base para público mayor */
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-cream font-sans text-ink antialiased;
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+        @apply font-serif text-navy;
+        line-height: 1.2;
+        text-wrap: balance;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-gold);
+        outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@utility btn {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors duration-200;
+}
+
+@layer components {
+    .container-page {
+        @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .btn-primary {
+        @apply btn bg-gold text-navy hover:bg-gold-600;
+    }
+
+    .btn-secondary {
+        @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
+    }
+
+    .btn-light {
+        @apply btn border-2 border-white text-white hover:bg-white hover:text-navy;
+    }
+
+    .eyebrow {
+        @apply text-sm font-semibold tracking-widest text-leaf-700 uppercase;
+    }
+
+    .prose-lyk {
+        @apply text-lg leading-relaxed text-ink;
+    }
+    .prose-lyk h2 { @apply mt-8 mb-3 text-2xl; }
+    .prose-lyk h3 { @apply mt-6 mb-2 text-xl; }
+    .prose-lyk p, .prose-lyk ul, .prose-lyk ol, .prose-lyk blockquote, .prose-lyk figure { @apply mb-4; }
+    .prose-lyk ul { @apply list-disc pl-6; }
+    .prose-lyk ol { @apply list-decimal pl-6; }
+    .prose-lyk a { @apply font-semibold text-leaf-700 underline; }
+    .prose-lyk blockquote { @apply border-l-4 border-gold pl-4 italic; }
+    .prose-lyk img { @apply h-auto max-w-full rounded-xl; }
+
+    /* Panel admin */
+    .form-label { @apply mb-1 block font-semibold text-navy; }
+    .form-input {
+        @apply block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-ink focus:border-leaf focus:ring-2 focus:ring-leaf/30 focus:outline-none;
+    }
+    .form-help { @apply mt-1 text-sm text-muted; }
+    .form-error { @apply mt-1 text-sm font-semibold text-red-700; }
+}
