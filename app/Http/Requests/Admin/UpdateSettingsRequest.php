@@ -56,7 +56,7 @@ class UpdateSettingsRequest extends FormRequest
 
     public function messages(): array
     {
-        return [
+        return ImageUploader::messages('logo', 'about_image') + [
             'whatsapp.regex' => 'Escribe el WhatsApp sólo con números, con lada, por ejemplo +525512345678.',
         ];
     }

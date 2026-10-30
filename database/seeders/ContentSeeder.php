@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Contenido inicial del sitio. Es idempotente: no duplica ni pisa lo que el dueño ya editó.
+ * Contenido inicial del sitio. Sólo llena las secciones vacías, así que repetirlo no duplica ni pisa lo que el dueño ya editó.
  * Los textos marcados con [Revisar] son de ejemplo.
  */
 class ContentSeeder extends Seeder
@@ -34,6 +34,10 @@ class ContentSeeder extends Seeder
 
     private function services(): void
     {
+        if (Service::exists()) {
+            return;
+        }
+
         $services = [
             ['Modalidad 40', 'Te ayudamos a evaluar si te conviene seguir cotizando por tu cuenta, cuánto pagar y por cuánto tiempo.', 'calendar'],
             ['Pensión Ley 73', 'Calculamos tu pensión estimada y revisamos tus semanas y tu salario promedio de las últimas 250 semanas.', 'document'],
@@ -51,6 +55,10 @@ class ContentSeeder extends Seeder
 
     private function posts(): void
     {
+        if (Post::exists()) {
+            return;
+        }
+
         $source = '<p><em>Fuentes: IMSS, Continuación Voluntaria; DOF 21/10/2026, Acuerdo ACDO.AS2.HCT.101026/302.P.DG.</em></p>';
 
         $posts = [
@@ -137,6 +145,10 @@ HTML,
 
     private function faqs(): void
     {
+        if (Faq::exists()) {
+            return;
+        }
+
         $faqs = [
             ['¿Qué es la Modalidad 40?', 'Es la continuación voluntaria en el régimen obligatorio del IMSS: te permite seguir cotizando por tu cuenta después de dejar un empleo, para sumar semanas y mejorar tu salario de cotización. [Revisar]'],
             ['¿Cómo sé si soy Ley 73 o Ley 97?', 'Depende de cuándo empezaste a cotizar: si tu primera alta en el IMSS fue antes del 1 de julio de 1997 perteneces a la Ley 73; si fue después, a la Ley 97. [Revisar]'],

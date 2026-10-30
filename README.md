@@ -65,6 +65,19 @@ sudo chown -R $USER:www-data storage bootstrap/cache
 sudo chmod -R ug+rwX storage bootstrap/cache
 ```
 
+### Requisitos de PHP
+
+Para que se puedan subir fotos de hasta 5 MB (por ejemplo, desde el celular):
+
+```ini
+upload_max_filesize = 6M
+post_max_size = 16M
+```
+
+Con PHP-FPM ya vienen en `public/.user.ini`. Con `mod_php` agrégalos al `php.ini` de Apache (`/etc/php/8.4/apache2/php.ini`) y reinicia Apache. Si una foto pesa más, el panel muestra un aviso en español con un botón para volver al formulario.
+
+`MAIL_TIMEOUT=10` evita que el formulario de contacto se quede esperando si el servidor de correo no responde. Con `MAIL_MAILER=log` no se envían correos (sólo se registran).
+
 En producción: `APP_ENV=production`, `APP_DEBUG=false` y `php artisan optimize`.
 
 ## Uso del panel

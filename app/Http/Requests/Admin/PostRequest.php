@@ -33,6 +33,11 @@ class PostRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return ImageUploader::messages('cover');
+    }
+
     /** Datos listos para guardar: cuerpo sanitizado, sin el archivo. */
     public function postData(): array
     {

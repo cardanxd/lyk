@@ -103,7 +103,7 @@ abstract class OrderableController extends Controller
             $rules[key($field)] = [$required, ...ImageUploader::RULES];
         }
 
-        $data = $request->validate($rules, [], $this->attributeNames());
+        $data = $request->validate($rules, ImageUploader::messages('image', 'photo'), $this->attributeNames());
 
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
         $data['is_active'] = $request->boolean('is_active');
