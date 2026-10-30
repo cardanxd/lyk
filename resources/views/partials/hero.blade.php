@@ -28,7 +28,7 @@
     </div>
 
     @if ($heroSlides->count() > 1)
-        <div class="absolute right-4 bottom-4 flex items-center gap-2 rounded-full bg-white/90 p-1 shadow">
+        <div class="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-white/90 p-1 shadow">
             <button type="button" class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-navy hover:bg-sage-100" data-prev aria-label="Portada anterior">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" d="M15 18l-6-6 6-6"/></svg>
             </button>

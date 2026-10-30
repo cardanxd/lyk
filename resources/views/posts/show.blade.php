@@ -1,6 +1,11 @@
 @extends('layouts.public')
 
 @section('title', $post->title)
+@section('description', $post->excerptText())
+@section('og_type', 'article')
+@if ($post->cover_path)
+    @section('og_image', storage_url($post->cover_path))
+@endif
 
 @section('content')
     @php($shareUrl = route('posts.show', $post))

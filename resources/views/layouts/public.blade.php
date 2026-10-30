@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@hasSection('title')@yield('title') · @endif LyK Asesoría y Consultoría</title>
+    @include('partials.seo')
     @stack('meta')
     <link rel="icon" type="image/png" href="{{ app(\App\Support\Settings::class)->imageUrl('logo_path', 'images/brand/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,5 +22,6 @@
     </main>
 
     @include('partials.footer')
+    @include('partials.whatsapp-button')
 </body>
 </html>
