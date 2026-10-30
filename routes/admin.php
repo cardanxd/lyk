@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\PasswordController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -19,4 +23,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('ajustes', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('ajustes', [SettingsController::class, 'update'])->name('settings.update');
+
+    Route::resource('portadas', HeroSlideController::class)->except('show')->names('slides')->parameters(['portadas' => 'id']);
+    Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);
+    Route::resource('preguntas', FaqController::class)->except('show')->names('faqs')->parameters(['preguntas' => 'id']);
+    Route::resource('testimonios', TestimonialController::class)->except('show')->names('testimonials')->parameters(['testimonios' => 'id']);
 });

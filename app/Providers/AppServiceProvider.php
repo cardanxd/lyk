@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Support\Settings;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Route::resourceVerbs(['create' => 'nuevo', 'edit' => 'editar']);
     }
 }
