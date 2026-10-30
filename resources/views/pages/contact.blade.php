@@ -86,6 +86,22 @@
                 </div>
             @endforeach
 
+            @if ($branches->isNotEmpty())
+                <div class="rounded-2xl bg-white p-5">
+                    <p class="mb-3 font-bold text-navy">Nuestras sucursales</p>
+                    <ul class="space-y-3">
+                        @foreach ($branches as $branch)
+                            <li>
+                                <p class="font-semibold">{{ $branch->name }}</p>
+                                <p class="text-muted">{{ $branch->address }}@if ($branch->city), {{ $branch->city }}@endif</p>
+                                @if ($branch->maps_url)<a href="{{ $branch->maps_url }}" target="_blank" rel="noopener" class="text-leaf-700 underline">Cómo llegar</a>@endif
+                            </li>
+                        @endforeach
+                    </ul>
+                    <a href="{{ route('branches') }}" class="mt-4 inline-block font-semibold text-leaf-700 underline">Ver todas las sucursales</a>
+                </div>
+            @endif
+
             @if ($map = setting('map_embed_url'))
                 <iframe src="{{ $map }}" title="Mapa de nuestra ubicación" class="aspect-[4/3] w-full rounded-2xl border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
             @endif

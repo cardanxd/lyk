@@ -2,10 +2,11 @@
     $nav = [
         ['route' => 'home', 'label' => 'Inicio'],
         ['route' => 'posts.index', 'label' => 'Posts'],
+        ['route' => 'branches', 'label' => 'Sucursales'],
         ['route' => 'about', 'label' => 'Nosotros'],
         ['route' => 'contact', 'label' => 'Contacto'],
     ];
-    $nav = array_filter($nav, fn ($item) => Route::has($item['route']));
+    $nav = array_filter($nav, fn ($item) => Route::has($item['route']) && ($item['route'] !== 'branches' || ($hasBranches ?? false)));
 @endphp
 <header class="sticky top-0 z-40 border-b border-sage/60 bg-cream/95 backdrop-blur">
     <div class="container-page flex items-center justify-between gap-4 py-3">

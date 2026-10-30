@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Faq;
 use App\Models\HeroSlide;
 use App\Models\Post;
@@ -18,6 +19,7 @@ class HomeController extends Controller
             'posts' => Post::published()->limit(3)->get(),
             'testimonials' => Testimonial::active()->get(),
             'faqs' => Faq::active()->get(),
+            'branches' => Branch::active()->get(),
         ]);
     }
 }

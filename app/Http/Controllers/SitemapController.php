@@ -8,7 +8,7 @@ class SitemapController extends Controller
 {
     public function __invoke()
     {
-        $urls = collect(['home', 'posts.index', 'about', 'contact', 'privacy'])
+        $urls = collect(['home', 'posts.index', 'branches', 'about', 'contact', 'privacy'])
             ->map(fn ($name) => ['loc' => route($name), 'lastmod' => null])
             ->concat(Post::published()->get()->map(fn (Post $post) => [
                 'loc' => route('posts.show', $post),

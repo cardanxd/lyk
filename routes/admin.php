@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HeroSlideController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::put('ajustes', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::resource('posts', PostController::class)->except('show')->scoped(['post' => 'id']);
+    Route::resource('sucursales', BranchController::class)->except('show')->names('branches')->parameters(['sucursales' => 'id']);
     Route::resource('portadas', HeroSlideController::class)->except('show')->names('slides')->parameters(['portadas' => 'id']);
     Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);
     Route::resource('preguntas', FaqController::class)->except('show')->names('faqs')->parameters(['preguntas' => 'id']);

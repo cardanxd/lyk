@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Branch;
 use App\Models\ContactMessage;
 use App\Support\Settings;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::resourceVerbs(['create' => 'nuevo', 'edit' => 'editar']);
+
+        View::composer(['partials.header', 'partials.footer'], function ($view) {
+            $view->with('hasBranches', Branch::active()->exists());
+        });
 
         View::composer('layouts.admin', function ($view) {
             $view->with('unreadMessages', auth()->check() ? ContactMessage::unread()->count() : 0);
