@@ -74,7 +74,8 @@
                     @error('gallery_videos')<p class="form-error">{{ $message }}</p>@enderror
                     @foreach ($errors->get('gallery_videos.*') as $messages)<p class="form-error">{{ $messages[0] }}</p>@endforeach
                 </div>
-                <x-admin.field name="video_url" label="O pega un enlace de YouTube o Facebook" type="url" placeholder="https://youtu.be/…" />
+                <x-admin.field name="video_url" label="O pega un enlace de YouTube o Facebook" type="url" placeholder="https://youtu.be/… o https://www.facebook.com/share/v/…"
+                    help="El video debe ser público. Si un video de Facebook no se ve en el post, ábrelo en el navegador y copia la dirección completa de la barra (la que contiene /videos/ o /reel/)." />
             </section>
         </div>
 

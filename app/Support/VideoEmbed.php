@@ -26,7 +26,8 @@ class VideoEmbed
 
         parse_str($parts['query'] ?? '', $query);
         $isFacebookVideo = (in_array($host, self::FACEBOOK_HOSTS, true) && (
-                preg_match('#/(videos|reel)/\d+/?$#', $path)
+                preg_match('#/(videos|reel)/(?:[^/]+/)?\d+/?$#', $path)
+                || preg_match('#^/share/[vr]/[A-Za-z0-9_-]+/?$#', $path)
                 || (preg_match('#^/watch/?$#', $path) && is_string($query['v'] ?? null) && ctype_digit($query['v']))
             ))
             || ($host === 'fb.watch' && preg_match('#^/[A-Za-z0-9_-]+/?$#', $path));

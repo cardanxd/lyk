@@ -42,3 +42,21 @@ it('rechaza enlaces de Facebook sin id de video', function (string $url) {
 
 it('acepta Facebook watch con v=', fn () =>
     expect(VideoEmbed::fromUrl('https://www.facebook.com/watch/?v=123456'))->not->toBeNull());
+
+it('acepta los enlaces cortos de Compartir de Facebook y videos con título', function (string $url) {
+    expect(VideoEmbed::fromUrl($url))
+        ->toBe('https://www.facebook.com/plugins/video.php?href='.rawurlencode($url).'&show_text=false');
+})->with([
+    'https://www.facebook.com/share/v/1GPfBQogox/',
+    'https://www.facebook.com/share/r/1GPfBQogox/',
+    'https://www.facebook.com/share/v/1GPfBQogox',
+    'https://www.facebook.com/lyk/videos/modalidad-40-explicada/123456789/',
+]);
+
+it('rechaza enlaces cortos de Facebook que no son video', function (string $url) {
+    expect(VideoEmbed::fromUrl($url))->toBeNull();
+})->with([
+    'https://www.facebook.com/share/p/1GPfBQogox/',
+    'https://www.facebook.com/share/v/',
+    'https://www.facebook.com/share/v/abc/extra/',
+]);
