@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -49,6 +50,11 @@ class Post extends Model
         return $slug;
     }
 
+    public function media(): HasMany
+    {
+        return $this->hasMany(PostMedia::class)->orderBy('sort_order')->orderBy('id');
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -65,6 +71,15 @@ class Post extends Model
     public function editorBody(): string
     {
         return preg_replace('#<(/?)h[23]\b#i', '<$1h1', (string) $this->body);
+    }
+
+    /** Agrega photos_count y videos_count (subidos o enlazados) para las tarjetas. */
+    public function scopeWithMediaCounts(Builder $query): Builder
+    {
+        return $query->withCount([
+            'media as photos_count' => fn ($q) => $q->where('type', 'image'),
+            'media as videos_count' => fn ($q) => $q->where('type', '!=', 'image'),
+        ]);
     }
 
     public function excerptText(): string

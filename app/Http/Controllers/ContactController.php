@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewContactMessage;
+use App\Models\Branch;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -15,7 +16,7 @@ class ContactController extends Controller
 
     public function create()
     {
-        return view('pages.contact', ['topics' => ContactMessage::TOPICS]);
+        return view('pages.contact', ['topics' => ContactMessage::TOPICS, 'branches' => Branch::active()->get()]);
     }
 
     public function store(Request $request)

@@ -9,6 +9,7 @@
             <ul class="space-y-2">
                 <li><a href="{{ route('home') }}" class="hover:text-gold">Inicio</a></li>
                 @if (Route::has('posts.index'))<li><a href="{{ route('posts.index') }}" class="hover:text-gold">Posts</a></li>@endif
+                @if ($hasBranches ?? false)<li><a href="{{ route('branches') }}" class="hover:text-gold">Sucursales</a></li>@endif
                 @if (Route::has('about'))<li><a href="{{ route('about') }}" class="hover:text-gold">Nosotros</a></li>@endif
                 @if (Route::has('contact'))<li><a href="{{ route('contact') }}" class="hover:text-gold">Contacto</a></li>@endif
             </ul>

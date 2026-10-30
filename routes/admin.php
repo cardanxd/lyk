@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\MessageTagController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\PostMediaController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -27,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::put('ajustes', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::resource('posts', PostController::class)->except('show')->scoped(['post' => 'id']);
+    Route::delete('posts/{post:id}/media/{media}', [PostMediaController::class, 'destroy'])->scopeBindings()->name('posts.media.destroy');
+    Route::resource('sucursales', BranchController::class)->except('show')->names('branches')->parameters(['sucursales' => 'id']);
     Route::resource('portadas', HeroSlideController::class)->except('show')->names('slides')->parameters(['portadas' => 'id']);
     Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);
     Route::resource('preguntas', FaqController::class)->except('show')->names('faqs')->parameters(['preguntas' => 'id']);
@@ -34,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('mensajes', [MessageController::class, 'index'])->name('messages.index');
     Route::get('mensajes/{message}', [MessageController::class, 'show'])->name('messages.show');
-    Route::patch('mensajes/{message}/atendido', [MessageController::class, 'toggle'])->name('messages.toggle');
+    Route::patch('mensajes/{message}', [MessageController::class, 'update'])->name('messages.update');
+    Route::patch('mensajes/{message}/leido', [MessageController::class, 'toggleRead'])->name('messages.read');
+    Route::resource('etiquetas', MessageTagController::class)->except('show')->names('tags')->parameters(['etiquetas' => 'tag']);
     Route::delete('mensajes/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });

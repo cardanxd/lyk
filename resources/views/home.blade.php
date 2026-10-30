@@ -5,6 +5,7 @@
     @include('partials.why')
     @include('partials.services')
     @include('partials.steps')
+    @include('partials.branches')
     @include('partials.latest-posts')
     @include('partials.testimonials')
     @include('partials.faqs')

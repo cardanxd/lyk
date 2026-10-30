@@ -11,6 +11,16 @@
         @endif
     </a>
     <div class="flex flex-1 flex-col p-5">
+        @php($counts = array_filter([
+            ($post->photos_count ?? 0) ? $post->photos_count.' '.($post->photos_count === 1 ? 'foto' : 'fotos') : null,
+            ($post->videos_count ?? 0) ? $post->videos_count.' '.($post->videos_count === 1 ? 'video' : 'videos') : null,
+        ]))
+        @if ($counts)
+            <p class="mb-2 inline-flex items-center gap-1.5 self-start rounded-full bg-sage-100 px-3 py-1 text-sm font-semibold text-leaf-700">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5"/></svg>
+                {{ implode(' · ', $counts) }}
+            </p>
+        @endif
         <time datetime="{{ $post->published_at->toDateString() }}" class="mb-2 text-sm text-muted">{{ $post->published_at->translatedFormat('j \d\e F \d\e Y') }}</time>
         <h3 class="mb-2 text-xl"><a href="{{ route('posts.show', $post) }}" class="hover:text-leaf-700">{{ $post->title }}</a></h3>
         <p class="mb-4 flex-1 text-muted">{{ $post->excerptText() }}</p>

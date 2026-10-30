@@ -67,14 +67,14 @@ sudo chmod -R ug+rwX storage bootstrap/cache
 
 ### Requisitos de PHP
 
-Para que se puedan subir fotos de hasta 5 MB (por ejemplo, desde el celular):
+Para subir fotos de hasta 5 MB y videos cortos de hasta 50 MB (por ejemplo, desde el celular):
 
 ```ini
-upload_max_filesize = 6M
-post_max_size = 16M
+upload_max_filesize = 60M
+post_max_size = 256M
 ```
 
-Con PHP-FPM ya vienen en `public/.user.ini`. Con `mod_php` agrégalos al `php.ini` de Apache (`/etc/php/8.4/apache2/php.ini`) y reinicia Apache. Si una foto pesa más, el panel muestra un aviso en español con un botón para volver al formulario.
+Con PHP-FPM ya vienen en `public/.user.ini`. Con `mod_php` agrégalos al `php.ini` de Apache (`/etc/php/8.4/apache2/php.ini`) y reinicia Apache. Si un archivo pesa más, el panel muestra un aviso en español con un botón para volver al formulario.
 
 `MAIL_TIMEOUT=10` evita que el formulario de contacto se quede esperando si el servidor de correo no responde. Con `MAIL_MAILER=log` no se envían correos (sólo se registran).
 
@@ -85,8 +85,9 @@ En producción: `APP_ENV=production`, `APP_DEBUG=false` y `php artisan optimize`
 Entra a `/admin/login`. Desde ahí puedes:
 
 - **Ajustes:** logo, nombre, lema, misión, visión, valores, historia, foto de "Nosotros", teléfono, WhatsApp, correo, dirección, horario, mapa, redes sociales, aviso de privacidad y descripción para Google.
+- **Sucursales:** nombre, dirección, ciudad, horario, teléfono, WhatsApp, foto de la fachada y mapa. El sitio muestra cuántas sucursales hay en `/sucursales`, en el inicio y en contacto.
 - **Portadas:** fotos del carrusel de inicio (orden, visible/oculto, título y botón opcionales).
-- **Posts:** guías y noticias con editor, imagen de portada, borrador o publicado y fecha programada.
+- **Posts:** guías y noticias con editor, imagen de portada, borrador o publicado y fecha programada. Cada post puede tener una galería de fotos (hasta 10 por envío), videos cortos (MP4, MOV o WEBM de hasta 50 MB) y enlaces de YouTube o Facebook.
 - **Servicios, Preguntas y Testimonios:** listas con orden y visible/oculto.
 - **Mensajes:** lo que llega del formulario de contacto. También se avisa por correo.
 

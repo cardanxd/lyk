@@ -8,6 +8,7 @@
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         @foreach ([
             ['admin.settings.edit', 'Ajustes generales', 'Logo, misión, visión, contacto y redes sociales.'],
+            ['admin.branches.index', 'Sucursales', 'Dirección, foto, horario y mapa de cada sucursal.'],
             ['admin.slides.index', 'Portadas', 'Fotos del carrusel de la página de inicio.'],
             ['admin.posts.index', 'Posts', 'Guías, noticias e infografías.'],
             ['admin.services.index', 'Servicios', 'Lo que ofreces a tus clientes.'],

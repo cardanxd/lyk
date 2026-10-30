@@ -25,6 +25,10 @@
 
             <div class="prose-lyk">{!! $post->body !!}</div>
 
+            @if ($post->media->isNotEmpty())
+                @include('posts.gallery', ['media' => $post->media])
+            @endif
+
             <div class="mt-10 flex flex-wrap items-center gap-3 border-t border-sage pt-6">
                 <span class="font-semibold text-navy">Compártelo:</span>
                 <a href="https://wa.me/?text={{ rawurlencode($post->title.' '.$shareUrl) }}" target="_blank" rel="noopener" class="btn min-h-11 bg-[#1F8A4C] px-5 py-2 text-white hover:bg-[#176B3B]">WhatsApp</a>

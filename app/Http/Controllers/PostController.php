@@ -10,16 +10,16 @@ class PostController extends Controller
 
     public function index()
     {
-        return view('posts.index', ['posts' => Post::published()->paginate(self::PER_PAGE)]);
+        return view('posts.index', ['posts' => Post::published()->withMediaCounts()->paginate(self::PER_PAGE)]);
     }
 
     public function show(string $slug)
     {
-        $post = Post::published()->where('slug', $slug)->firstOrFail();
+        $post = Post::published()->with('media')->where('slug', $slug)->firstOrFail();
 
         return view('posts.show', [
             'post' => $post,
-            'related' => Post::published()->whereKeyNot($post->id)->limit(3)->get(),
+            'related' => Post::published()->withMediaCounts()->whereKeyNot($post->id)->limit(3)->get(),
         ]);
     }
 }
