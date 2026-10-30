@@ -48,3 +48,13 @@ function something()
 {
     // ..
 }
+
+function validSettings(array $overrides = []): array
+{
+    return array_merge([
+        'site_name' => 'LyK Asesoría',
+        'tagline' => 'Hacemos de tu retiro una nueva oportunidad',
+        'phone' => '55 1234 5678',
+        'email' => 'contacto@lyk.mx',
+    ], $overrides);
+}
