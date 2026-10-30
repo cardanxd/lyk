@@ -5,6 +5,7 @@ use App\Models\PostMedia;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use App\Support\VideoEmbed as VideoEmbedMessages;
 
 beforeEach(function () {
     Storage::fake('public');
@@ -104,4 +105,19 @@ it('el formulario muestra la galería actual', function () {
     $post = Post::factory()->create();
     PostMedia::factory()->for($post)->create(['caption' => 'Mi foto']);
     $this->get("/admin/posts/{$post->id}/editar")->assertOk()->assertSee('Galería')->assertSee('Mi foto');
+});
+
+it('explica qué pegar cuando se usa un enlace corto de Compartir de Facebook', function () {
+    $this->post('/admin/posts', postFields(['video_url' => 'https://www.facebook.com/share/v/1GPfBQogox/']))
+        ->assertSessionHasErrors(['video_url' => VideoEmbedMessages::SHARE_LINK]);
+});
+
+it('guarda un video de Facebook pegado como código de Insertar', function () {
+    $code = '<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1744235962840460%2F&show_text=false&width=267" width="267" height="476"></iframe>';
+    $this->post('/admin/posts', postFields(['video_url' => $code]))->assertSessionHasNoErrors();
+    expect(PostMedia::first()->url)->toContain('href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1744235962840460%2F');
+});
+
+it('el campo de enlace acepta texto (para pegar el código de Insertar)', function () {
+    $this->get('/admin/posts/nuevo')->assertSee('id="video_url" name="video_url" type="text"', false);
 });

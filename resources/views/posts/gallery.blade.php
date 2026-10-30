@@ -48,7 +48,15 @@
                         </video>
                         <a href="{{ $video->publicUrl() }}" download class="mt-1 inline-block text-sm text-leaf-700 underline">¿No se reproduce? Descargar el video</a>
                     @else
-                        <iframe src="{{ $video->url }}" title="{{ $video->caption ?: 'Video de '.$post->title }}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="aspect-video w-full rounded-xl border-0 bg-navy"></iframe>
+                        @php($isFacebook = str_starts_with($video->url, 'https://www.facebook.com/'))
+                        <iframe src="{{ $video->url }}" title="{{ $video->caption ?: 'Video de '.$post->title }}" loading="lazy"
+                                data-embed="{{ $isFacebook ? 'facebook' : 'youtube' }}"
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
+                                @class([
+                                    'w-full rounded-xl border-0 bg-navy',
+                                    'aspect-[9/16] max-w-sm mx-auto block' => $isFacebook,
+                                    'aspect-video' => ! $isFacebook,
+                                ])></iframe>
                     @endif
                     @if ($video->caption)<figcaption class="mt-1 text-muted">{{ $video->caption }}</figcaption>@endif
                 </figure>

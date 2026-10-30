@@ -63,3 +63,9 @@ it('el botón Quitar avisa que se pierden los cambios sin guardar', function () 
     PostMedia::factory()->for($post)->create();
     $this->get("/admin/posts/{$post->id}/editar")->assertSee('Los cambios sin guardar del post se perderán');
 });
+
+it('los videos de Facebook se muestran en formato vertical para no recortar reels', function () {
+    $post = Post::factory()->published()->create();
+    PostMedia::factory()->for($post)->create(['type' => 'embed', 'path' => null, 'url' => 'https://www.facebook.com/plugins/video.php?href=x&show_text=false']);
+    $this->get("/posts/{$post->slug}")->assertSee('data-embed="facebook"', false)->assertSee('aspect-[9/16]', false);
+});

@@ -32,8 +32,10 @@ class PostRequest extends FormRequest
             'gallery_images.*' => ImageUploader::RULES,
             'gallery_videos' => ['nullable', 'array', 'max:'.self::MAX_VIDEOS],
             'gallery_videos.*' => ImageUploader::VIDEO_RULES,
-            'video_url' => ['nullable', 'string', 'max:500', function (string $attribute, mixed $value, Closure $fail) {
-                if (! VideoEmbed::fromUrl((string) $value)) {
+            'video_url' => ['nullable', 'string', 'max:2000', function (string $attribute, mixed $value, Closure $fail) {
+                if (VideoEmbed::isFacebookShareLink((string) $value)) {
+                    $fail(VideoEmbed::SHARE_LINK);
+                } elseif (! VideoEmbed::fromUrl((string) $value)) {
                     $fail('Pega un enlace de un video de YouTube o Facebook.');
                 }
             }],
