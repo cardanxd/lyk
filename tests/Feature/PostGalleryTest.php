@@ -41,11 +41,25 @@ it('usa singular con una foto', function () {
 
 it('los límites de PHP permiten videos de 50 MB', function () {
     $ini = file_get_contents(public_path('.user.ini'));
-    expect($ini)->toContain('upload_max_filesize = 60M')->toContain('post_max_size = 128M');
+    expect($ini)->toContain('upload_max_filesize = 60M')->toContain('post_max_size = 256M');
 });
 
 it('la página 413 menciona el límite de videos', function () {
     $this->actingAs(App\Models\User::factory()->create());
     $this->call('POST', '/admin/posts', [], [], [], ['CONTENT_LENGTH' => 500 * 1024 * 1024, 'CONTENT_TYPE' => 'multipart/form-data'])
         ->assertStatus(413)->assertSee('50 MB');
+});
+
+it('post_max_size alcanza para el máximo de archivos de un envío', function () {
+    preg_match('/post_max_size\s*=\s*(\d+)M/', file_get_contents(public_path('.user.ini')), $m);
+    $maxMb = App\Http\Requests\Admin\PostRequest::MAX_VIDEOS * 50 + App\Http\Requests\Admin\PostRequest::MAX_IMAGES * 5 + 5;
+    expect((int) $m[1])->toBeGreaterThan($maxMb);
+    expect(file_get_contents(base_path('README.md')))->toContain('post_max_size = '.$m[1].'M');
+});
+
+it('el botón Quitar avisa que se pierden los cambios sin guardar', function () {
+    $this->actingAs(App\Models\User::factory()->create());
+    $post = Post::factory()->create();
+    PostMedia::factory()->for($post)->create();
+    $this->get("/admin/posts/{$post->id}/editar")->assertSee('Los cambios sin guardar del post se perderán');
 });

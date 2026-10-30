@@ -31,3 +31,14 @@ it('rechaza enlaces que no son de YouTube ni Facebook', function (string $url) {
     'https://evil.com/?u=https://www.facebook.com/x/videos/1',
     'http://www.facebook.com/lyk/photos/1',
 ]);
+
+it('rechaza enlaces de Facebook sin id de video', function (string $url) {
+    expect(VideoEmbed::fromUrl($url))->toBeNull();
+})->with([
+    'https://www.facebook.com/watch',
+    'https://www.facebook.com/videos-de-algo',
+    'https://www.facebook.com/lyk/videos/',
+]);
+
+it('acepta Facebook watch con v=', fn () =>
+    expect(VideoEmbed::fromUrl('https://www.facebook.com/watch/?v=123456'))->not->toBeNull());

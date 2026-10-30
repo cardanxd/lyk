@@ -100,7 +100,7 @@
 
     @if ($post->exists)
         @foreach ($post->media as $media)
-            <form id="delete-media-{{ $media->id }}" method="POST" action="{{ route('admin.posts.media.destroy', [$post->id, $media->id]) }}" onsubmit="return confirm('¿Quitar este elemento de la galería?')" class="hidden">
+            <form id="delete-media-{{ $media->id }}" method="POST" action="{{ route('admin.posts.media.destroy', [$post->id, $media->id]) }}" onsubmit="return confirm('¿Quitar este elemento de la galería? Los cambios sin guardar del post se perderán; guárdalos antes si los necesitas.')" class="hidden">
                 @csrf
                 @method('DELETE')
             </form>

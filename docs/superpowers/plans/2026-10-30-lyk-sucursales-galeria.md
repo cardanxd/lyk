@@ -16,7 +16,7 @@
 - Videos subidos: `mp4, mov, webm` (mimetypes `video/mp4, video/quicktime, video/webm`), máximo 50 MB (`max:51200`).
 - Enlaces de video aceptados: YouTube (`youtube.com/watch?v=`, `youtu.be/`, `youtube.com/shorts/`) y Facebook (`facebook.com/.../videos/...`, `fb.watch/...`). Cualquier otro enlace → error de validación en español.
 - Hasta 10 fotos y 3 videos por envío del formulario.
-- Límites PHP documentados: `upload_max_filesize = 60M`, `post_max_size = 128M`.
+- Límites PHP documentados: `upload_max_filesize = 60M`, `post_max_size = 256M` (revisado: 3×50 MB + 10×5 MB + portada).
 - No se siembran sucursales de ejemplo: no se inventan direcciones.
 
 ## Review Focus

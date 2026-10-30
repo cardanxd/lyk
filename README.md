@@ -71,7 +71,7 @@ Para subir fotos de hasta 5 MB y videos cortos de hasta 50 MB (por ejemplo, desd
 
 ```ini
 upload_max_filesize = 60M
-post_max_size = 128M
+post_max_size = 256M
 ```
 
 Con PHP-FPM ya vienen en `public/.user.ini`. Con `mod_php` agrégalos al `php.ini` de Apache (`/etc/php/8.4/apache2/php.ini`) y reinicia Apache. Si un archivo pesa más, el panel muestra un aviso en español con un botón para volver al formulario.

@@ -24,8 +24,12 @@ class VideoEmbed
             return "https://www.youtube-nocookie.com/embed/{$id}";
         }
 
-        $isFacebookVideo = (in_array($host, self::FACEBOOK_HOSTS, true) && preg_match('#/(videos|reel|watch)\b#', $path))
-            || ($host === 'fb.watch' && strlen(trim($path, '/')) > 0);
+        parse_str($parts['query'] ?? '', $query);
+        $isFacebookVideo = (in_array($host, self::FACEBOOK_HOSTS, true) && (
+                preg_match('#/(videos|reel)/\d+/?$#', $path)
+                || (preg_match('#^/watch/?$#', $path) && is_string($query['v'] ?? null) && ctype_digit($query['v']))
+            ))
+            || ($host === 'fb.watch' && preg_match('#^/[A-Za-z0-9_-]+/?$#', $path));
 
         if ($isFacebookVideo) {
             return 'https://www.facebook.com/plugins/video.php?href='.rawurlencode(trim($url)).'&show_text=false';
