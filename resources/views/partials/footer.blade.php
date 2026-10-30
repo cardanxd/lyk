@@ -15,6 +15,25 @@
         </div>
         <div>
             <h2 class="mb-3 font-sans text-base font-bold tracking-widest text-gold uppercase">Contacto</h2>
+            <ul class="space-y-2">
+                @if ($phone = setting('phone'))<li><a href="tel:{{ preg_replace('/[^\d+]/', '', $phone) }}" class="hover:text-gold">Tel. {{ $phone }}</a></li>@endif
+                @if ($email = setting('email'))<li><a href="mailto:{{ $email }}" class="break-all hover:text-gold">{{ $email }}</a></li>@endif
+                @if ($address = setting('address'))<li class="text-white/85">{{ $address }}</li>@endif
+                @if ($schedule = setting('schedule'))<li class="text-white/85">{{ $schedule }}</li>@endif
+            </ul>
+            @php($socials = array_filter([
+                'Facebook' => setting('facebook_url'),
+                'Instagram' => setting('instagram_url'),
+                'TikTok' => setting('tiktok_url'),
+                'YouTube' => setting('youtube_url'),
+            ]))
+            @if ($socials)
+                <ul class="mt-4 flex flex-wrap gap-2">
+                    @foreach ($socials as $network => $url)
+                        <li><a href="{{ $url }}" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center rounded-full border border-white/30 px-4 hover:border-gold hover:text-gold">{{ $network }}</a></li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
     <div class="border-t border-white/15">

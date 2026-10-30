@@ -8,3 +8,11 @@ if (! function_exists('setting')) {
         return app(Settings::class)->get($key, $default);
     }
 }
+
+if (! function_exists('storage_url')) {
+    /** URL pública de un archivo del disco "public", o null. */
+    function storage_url(?string $path): ?string
+    {
+        return $path ? Illuminate\Support\Facades\Storage::disk('public')->url($path) : null;
+    }
+}
