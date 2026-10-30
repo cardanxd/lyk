@@ -10,9 +10,9 @@ if (! function_exists('setting')) {
 }
 
 if (! function_exists('storage_url')) {
-    /** URL pública de un archivo del disco "public", o null. */
+    /** URL pública de un archivo del disco "public" (vía storage:link), con el host de la petición. */
     function storage_url(?string $path): ?string
     {
-        return $path ? Illuminate\Support\Facades\Storage::disk('public')->url($path) : null;
+        return $path ? asset('storage/'.ltrim($path, '/')) : null;
     }
 }

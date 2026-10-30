@@ -1,0 +1,10 @@
+/* Los posts no admiten archivos dentro del texto: se oculta el botón de adjuntar. */
+trix-toolbar [data-trix-button-group="file-tools"] {
+    display: none;
+}
+
+trix-editor h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 1rem 0 0.5rem;
+}

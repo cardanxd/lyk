@@ -29,7 +29,7 @@
             @foreach ($posts as $post)
                 <li class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
                     @if ($post->cover_path)
-                        <img src="{{ Storage::disk('public')->url($post->cover_path) }}" alt="" class="h-16 w-24 shrink-0 rounded-lg object-cover">
+                        <img src="{{ storage_url($post->cover_path) }}" alt="" class="h-16 w-24 shrink-0 rounded-lg object-cover">
                     @else
                         <div class="h-16 w-24 shrink-0 rounded-lg bg-sage-100" aria-hidden="true"></div>
                     @endif

@@ -2,7 +2,7 @@
 
 @section('fields')
     <x-admin.image-field name="image" label="Imagen de portada" :required="! $item->exists"
-        :current-url="$item->image_path ? Storage::disk('public')->url($item->image_path) : null" />
+        :current-url="$item->image_path ? storage_url($item->image_path) : null" />
     <p class="form-help -mt-3">Recomendado: horizontal, al menos 1600 × 900 px. Si la imagen ya trae texto, deja vacío el título.</p>
     <x-admin.field name="title" label="Título" :value="$item->title" />
     <x-admin.field name="subtitle" label="Subtítulo" :value="$item->subtitle" />

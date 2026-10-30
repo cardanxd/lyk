@@ -74,3 +74,13 @@ it('lista, filtra y busca posts', function () {
     $this->get('/admin/posts?q=M40')->assertSee('Publicado M40')->assertDontSee('Borrador AFORE');
     $this->get('/admin/posts/nuevo')->assertOk();
 });
+
+it('guarda los títulos del editor (h1 de Trix) como h2', function () {
+    $this->post('/admin/posts', ['title' => 'X', 'status' => 'draft', 'body' => '<h1>Sección</h1><div>Texto</div>']);
+    expect(Post::first()->body)->toContain('<h2>Sección</h2>')->not->toContain('<h1>');
+});
+
+it('el editor recibe los h2 como h1 para no perderlos', function () {
+    $p = Post::factory()->create(['body' => '<h2>Sección</h2><p>Texto</p>']);
+    $this->get("/admin/posts/{$p->id}/editar")->assertSee('&lt;h1&gt;Sección&lt;/h1&gt;', false);
+});

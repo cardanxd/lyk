@@ -61,6 +61,12 @@ class Post extends Model
             ->orderByDesc('published_at');
     }
 
+    /** Cuerpo adaptado al editor Trix, que sólo conoce <h1> como título. */
+    public function editorBody(): string
+    {
+        return preg_replace('#<(/?)h[23]\b#i', '<$1h1', (string) $this->body);
+    }
+
     public function excerptText(): string
     {
         return $this->excerpt ?: Str::limit(trim(html_entity_decode(strip_tags($this->body))), 160);

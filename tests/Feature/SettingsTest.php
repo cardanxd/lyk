@@ -34,3 +34,11 @@ it('el seeder no pisa valores editados', function () {
     expect(setting('tagline'))->toBe('Editado')
         ->and(setting('site_name'))->toBe('LyK Asesoría y Consultoría de Pensiones y AFORE');
 });
+
+it('las URLs de imágenes subidas usan el host de la petición, no APP_URL', function () {
+    Storage::fake('public');
+    config(['app.url' => 'http://localhost:8000']);
+    Storage::disk('public')->put('branding/logo.png', 'x');
+    app(Settings::class)->set('logo_path', 'branding/logo.png');
+    $this->get('http://lyk.test/')->assertSee('http://lyk.test/storage/branding/logo.png', false);
+});

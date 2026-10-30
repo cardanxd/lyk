@@ -37,7 +37,9 @@ class PostRequest extends FormRequest
     public function postData(): array
     {
         $data = collect($this->validated())->except('cover')->all();
-        $data['body'] = clean($data['body'] ?? '', 'post');
+        // Trix sólo genera <h1>; en el sitio el h1 es el título del post, así que se guardan como <h2>.
+        $body = preg_replace('#<(/?)h1\b#i', '<$1h2', $data['body'] ?? '');
+        $data['body'] = clean($body, 'post');
 
         return $data;
     }

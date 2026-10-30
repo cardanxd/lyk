@@ -22,7 +22,7 @@
             <x-admin.field name="excerpt" label="Resumen corto" :value="$post->excerpt" rows="2" maxlength="300" help="Se muestra en la lista de posts y al compartir. Si lo dejas vacío se toma el inicio del texto." />
             <div>
                 <label for="body-editor" class="form-label">Contenido</label>
-                <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
+                <input id="body" type="hidden" name="body" value="{{ old('body', $post->editorBody()) }}">
                 <trix-editor id="body-editor" input="body" class="prose-lyk min-h-80 rounded-lg border border-gray-300 bg-white"></trix-editor>
                 @error('body')<p class="form-error">{{ $message }}</p>@enderror
             </div>
@@ -43,7 +43,7 @@
                 :value="$post->published_at?->format('Y-m-d\TH:i')"
                 help="Vacío = ahora. Una fecha futura programa la publicación." />
             <x-admin.image-field name="cover" label="Imagen de portada"
-                :current-url="$post->cover_path ? Storage::disk('public')->url($post->cover_path) : null" />
+                :current-url="$post->cover_path ? storage_url($post->cover_path) : null" />
             <button class="btn-primary w-full">Guardar post</button>
         </aside>
     </form>

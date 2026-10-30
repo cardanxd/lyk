@@ -49,7 +49,7 @@ class Settings
         $path = $this->get($key);
 
         if ($path && Storage::disk('public')->exists($path)) {
-            return Storage::disk('public')->url($path);
+            return storage_url($path);
         }
 
         return asset($fallbackAsset);
