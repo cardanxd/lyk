@@ -22,7 +22,7 @@
                     <a href="{{ route('admin.messages.index', ['etiqueta' => $tag->id]) }}" class="text-leaf-700 underline">{{ $tag->messages_count }} {{ $tag->messages_count === 1 ? 'mensaje' : 'mensajes' }}</a>
                     <div class="flex shrink-0 gap-2">
                         <a href="{{ route('admin.tags.edit', $tag) }}" class="btn-secondary min-h-11 px-4 py-2">Editar</a>
-                        <form method="POST" action="{{ route('admin.tags.destroy', $tag) }}" onsubmit="return confirm('¿Borrar la etiqueta «{{ $tag->name }}»? Los mensajes no se borran, sólo pierden esta etiqueta.')">
+                        <form method="POST" action="{{ route('admin.tags.destroy', $tag) }}" onsubmit="return confirm({{ Js::from('¿Borrar la etiqueta «'.$tag->name.'»? Los mensajes no se borran, sólo pierden esta etiqueta.') }})">
                             @csrf
                             @method('DELETE')
                             <button class="btn min-h-11 border-2 border-red-700 px-4 py-2 text-red-700 hover:bg-red-700 hover:text-white">Borrar</button>

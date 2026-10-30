@@ -106,3 +106,10 @@ it('borra un mensaje', function () {
     $this->delete("/admin/mensajes/{$m->id}")->assertRedirect('/admin/mensajes');
     expect(ContactMessage::count())->toBe(0);
 });
+
+it('las etiquetas seleccionadas muestran una palomita visible', function () {
+    $tag = MessageTag::factory()->create();
+    $m = ContactMessage::factory()->create();
+    $m->tags()->attach($tag);
+    $this->get("/admin/mensajes/{$m->id}")->assertSee('peer-checked:[&_svg]:inline', false)->assertDontSee('opacity-60', false);
+});

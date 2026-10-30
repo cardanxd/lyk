@@ -50,9 +50,11 @@ class MessageTagController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:40', function (string $attribute, mixed $value, Closure $fail) use ($tag) {
-                $exists = MessageTag::whereRaw('LOWER(name) = ?', [mb_strtolower(trim((string) $value))])
-                    ->when($tag, fn ($q) => $q->whereKeyNot($tag->id))
-                    ->exists();
+                // Se compara en PHP: LOWER() de SQLite no convierte letras con acento (Ó, Ñ).
+                $needle = mb_strtolower(trim((string) $value));
+                $exists = MessageTag::when($tag, fn ($q) => $q->whereKeyNot($tag->id))
+                    ->pluck('name')
+                    ->contains(fn ($name) => mb_strtolower($name) === $needle);
                 if ($exists) {
                     $fail('Ya existe una etiqueta con ese nombre.');
                 }

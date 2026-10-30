@@ -50,3 +50,22 @@ it('un mensaje nuevo del formulario público nace pendiente', function () {
     $this->post('/contacto', validContact());
     expect(ContactMessage::first()->status)->toBe('pending');
 });
+
+it('el confirm de borrar no se rompe con apóstrofos en el nombre', function () {
+    MessageTag::factory()->create(['name' => "Don't call"]);
+    $html = $this->get('/admin/etiquetas')->getContent();
+    preg_match('/onsubmit="return confirm\((.*?)\)"/s', $html, $m);
+    $js = html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5);
+    expect($js)->toStartWith("'")->and($js)->not->toContain("Don't")->and($js)->toContain(chr(92).'u0027');
+});
+
+it('rechaza duplicados con acentos y mayúsculas no ASCII', function () {
+    MessageTag::factory()->create(['name' => 'PENSIÓN']);
+    $this->post('/admin/etiquetas', ['name' => 'pensión', 'color' => 'gray'])->assertSessionHasErrors('name');
+    expect(MessageTag::count())->toBe(1);
+});
+
+it('la migración de estado se puede revertir', function () {
+    $this->artisan('migrate:rollback', ['--step' => 3])->assertSuccessful();
+    expect(Illuminate\Support\Facades\Schema::hasColumn('contact_messages', 'status'))->toBeFalse();
+});

@@ -39,7 +39,8 @@
                         @foreach ($tags as $tag)
                             <label class="cursor-pointer">
                                 <input type="checkbox" name="tags[]" value="{{ $tag->id }}" class="peer sr-only" @checked(in_array($tag->id, old('tags', $message->tags->pluck('id')->all())))>
-                                <span class="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-transparent px-1 opacity-60 peer-checked:border-navy peer-checked:opacity-100 peer-focus-visible:ring-2 peer-focus-visible:ring-gold">
+                                <span class="inline-flex min-h-11 items-center gap-1 rounded-full border-2 border-dashed border-gray-300 px-1.5 peer-checked:border-solid peer-checked:border-navy peer-checked:bg-sage-100 peer-checked:[&_svg]:inline peer-focus-visible:ring-2 peer-focus-visible:ring-gold">
+                                    <svg class="hidden h-5 w-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true"><path stroke-linecap="round" d="M5 12l5 5 9-10"/></svg>
                                     <x-admin.tag-badge :tag="$tag" />
                                 </span>
                             </label>
