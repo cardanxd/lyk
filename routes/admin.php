@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\PostMediaController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::put('ajustes', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::resource('posts', PostController::class)->except('show')->scoped(['post' => 'id']);
+    Route::delete('posts/{post:id}/media/{media}', [PostMediaController::class, 'destroy'])->scopeBindings()->name('posts.media.destroy');
     Route::resource('sucursales', BranchController::class)->except('show')->names('branches')->parameters(['sucursales' => 'id']);
     Route::resource('portadas', HeroSlideController::class)->except('show')->names('slides')->parameters(['portadas' => 'id']);
     Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);

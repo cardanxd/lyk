@@ -9,6 +9,10 @@ class ImageUploader
 {
     public const RULES = ['image', 'mimes:jpg,jpeg,png,webp', 'max:5120'];
 
+    public const VIDEO_RULES = ['file', 'mimetypes:video/mp4,video/quicktime,video/webm', 'max:51200'];
+
+    public const VIDEO_TOO_LARGE = 'Cada video debe pesar máximo 50 MB.';
+
     public const TOO_LARGE = 'El archivo es demasiado pesado. Usa imágenes JPG, PNG o WEBP de máximo 5 MB.';
 
     /** Mensajes de validación para campos de imagen (incluye el fallo de subida de PHP). */
