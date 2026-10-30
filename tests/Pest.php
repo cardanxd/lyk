@@ -58,3 +58,15 @@ function validSettings(array $overrides = []): array
         'email' => 'contacto@lyk.mx',
     ], $overrides);
 }
+
+function validContact(array $overrides = []): array
+{
+    return array_merge([
+        'name' => 'Juan Pérez',
+        'phone' => '5512345678',
+        'email' => '',
+        'topic' => 'Modalidad 40',
+        'message' => 'Quiero saber si me conviene la Modalidad 40.',
+        'privacy' => '1',
+    ], $overrides);
+}

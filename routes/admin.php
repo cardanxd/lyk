@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HeroSlideController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -30,4 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('servicios', ServiceController::class)->except('show')->names('services')->parameters(['servicios' => 'id']);
     Route::resource('preguntas', FaqController::class)->except('show')->names('faqs')->parameters(['preguntas' => 'id']);
     Route::resource('testimonios', TestimonialController::class)->except('show')->names('testimonials')->parameters(['testimonios' => 'id']);
+
+    Route::get('mensajes', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('mensajes/{message}', [MessageController::class, 'show'])->name('messages.show');
+    Route::patch('mensajes/{message}/atendido', [MessageController::class, 'toggle'])->name('messages.toggle');
+    Route::delete('mensajes/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });
