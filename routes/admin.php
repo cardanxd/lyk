@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\MessageTagController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PostMediaController;
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('mensajes', [MessageController::class, 'index'])->name('messages.index');
     Route::get('mensajes/{message}', [MessageController::class, 'show'])->name('messages.show');
-    Route::patch('mensajes/{message}/atendido', [MessageController::class, 'toggle'])->name('messages.toggle');
+    Route::patch('mensajes/{message}', [MessageController::class, 'update'])->name('messages.update');
+    Route::patch('mensajes/{message}/leido', [MessageController::class, 'toggleRead'])->name('messages.read');
+    Route::resource('etiquetas', MessageTagController::class)->except('show')->names('tags')->parameters(['etiquetas' => 'tag']);
     Route::delete('mensajes/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });

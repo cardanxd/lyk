@@ -9,6 +9,7 @@
         ['route' => 'admin.faqs.index', 'match' => 'admin.faqs.*', 'label' => 'Preguntas', 'icon' => 'M9 9a3 3 0 115 2c-1 1-2 1.5-2 3M12 18h.01M12 22a10 10 0 100-20 10 10 0 000 20z'],
         ['route' => 'admin.testimonials.index', 'match' => 'admin.testimonials.*', 'label' => 'Testimonios', 'icon' => 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z'],
         ['route' => 'admin.messages.index', 'match' => 'admin.messages.*', 'label' => 'Mensajes', 'icon' => 'M4 4h16v16H4zM4 6l8 7 8-7', 'badge' => $unreadMessages ?? 0],
+        ['route' => 'admin.tags.index', 'match' => 'admin.tags.*', 'label' => 'Etiquetas', 'icon' => 'M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8zM7.5 7.5h.01'],
         ['route' => 'admin.password.edit', 'match' => 'admin.password.*', 'label' => 'Mi contraseña', 'icon' => 'M6 11h12v10H6zM8 11V7a4 4 0 118 0v4'],
     ];
     $menu = array_filter($menu, fn ($item) => Route::has($item['route']));
